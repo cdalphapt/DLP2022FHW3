@@ -39,7 +39,6 @@ class SAM(torch.optim.Optimizer):
 
         #2: move and save
         self.base_optimizer.step()  # do the first actual "sharpness-aware" update
-
         if zero_grad: self.zero_grad()
 
         for group in self.param_groups:

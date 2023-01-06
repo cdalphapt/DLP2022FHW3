@@ -53,13 +53,13 @@ if __name__ == "__main__":
             predictions = model(inputs)
             loss = smooth_crossentropy(predictions, targets, smoothing=args.label_smoothing)
             loss.mean().backward()
-            optimizer.first_step(zero_grad=True)
-            
+            optimizer.first_step(zero_grad=True)           
 
             # second forward-backward step
             disable_running_stats(model)# Because of BN
             smooth_crossentropy(model(inputs), targets, smoothing=args.label_smoothing).mean().backward()
             optimizer.first_step_2(zero_grad=True)
+            # third forward-backward step
             smooth_crossentropy(model(inputs), targets, smoothing=args.label_smoothing).mean().backward()
             optimizer.second_step(zero_grad=True)
 
